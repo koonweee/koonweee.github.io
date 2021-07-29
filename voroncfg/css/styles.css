@@ -102,6 +102,13 @@ li[id*='accentColorPicker']:before {
     content: "accent: ";
 }
 
+#hitsCount {
+    position: absolute;
+    right: 45px;
+    bottom: 20px;
+    z-index: 1;
+}
+
 /* input[id*='toggle'] {
     display: block;
     color: white;
