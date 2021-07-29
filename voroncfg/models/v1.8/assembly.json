@@ -1,0 +1,59 @@
+{
+    "description": "Assembly data for v1.8 model",
+    "meta": {
+        "assemblyID": "v1.8",
+        "srcPath": "models/v1.8/",
+        "mainModel": "frame",
+        "lowestModel": "glossblack"
+    },
+    "models": {
+        "frame": {
+            "src": "frame.stl",
+            "material": "frameMetal"
+        },
+        "base": {
+            "src": "base.stl",
+            "material": "basePlastic"
+        },
+        "accent": {
+            "src": "accent.stl",
+            "material": "accentPlastic"
+        },
+        "logo": {
+            "src": "logo.stl",
+            "material": "accentPlastic"
+        },
+        "solidpanels": {
+            "src": "solidpanels.stl",
+            "material": "solidPanelsPlastic"
+        },
+        "clearpanels": {
+            "src": "clearpanels.stl",
+            "material": "clearPanelsPlastic"
+        },
+        "glossblack": {
+            "src": "glossblackv1.stl",
+            "material": "blackPlastic"
+        },
+        "glossred": {
+            "src": "glossred.stl",
+            "material": "redPlastic"
+        },
+        "glosswhite": {
+            "src": "glosswhite.stl",
+            "material": "whitePlastic"
+        },
+        "brass": {
+            "src": "brass.stl",
+            "material": "brass"
+        },
+        "steel": {
+            "src": "steel.stl",
+            "material": "steel"
+        },
+        "screws": {
+            "src": "screws.stl",
+            "material": "steel"
+        }
+    }
+}
