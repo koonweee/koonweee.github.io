@@ -37,8 +37,17 @@ $(document).on({
 }, "div.jscolor-picker");
 
 
-
 class Toolbar {
+    static addAboutButton() {
+        document.getElementById("aboutBtn").onclick = () => {
+            document.getElementById("overlay").style.display = "block"
+            document.getElementById("overlayBg").style.display = "block"
+        }
+        document.getElementById("overlayBg").onclick = () => {
+            document.getElementById("overlay").style.display = "none"
+            document.getElementById("overlayBg").style.display = "none"
+        }
+    }
     //Tool bar has cameraDrop, toggleDrop and colorDrop div's, to be populated with dropdown <a>option name</a>
     static addOrbitToggle() { //registers onclick listener to call appropriate function
         document.getElementById("orbitToggle").onclick = () => modelView.toggleOrbit()

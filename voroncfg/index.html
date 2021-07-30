@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     
     <link href="css/styles.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css"/> <!-- 'monolith' theme -->
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <!-- Xeogl scripts -->
     <script src="scripts/xeogl/xeogl.js"></script>
     <script src="scripts/xeogl/STLModel.js"></script>
@@ -56,9 +54,19 @@
             <div id="colorDrop" class="dropdown-content"></div>
         </li>
         <li style="float:right">
-            <a href="javascript:void(0)" class="dropbtn_active">About</a>
+            <a href="javascript:void(0)" id="aboutBtn">About</a>
         </li>        
     </ul>
+    <div id="overlayBg"></div>
+    <div id="overlay">
+        <p>
+        xeolabs' <a href = "https://github.com/xeolabs/xeogl">xeogl</a> - 3D scenes loader<br>
+        <a href="https://github.com/EastDesire/jscolor">jscolor</a> - color picker<br>
+        <a href="https://github.com/VoronDesign">Voron Design</a> - 3D model<br><br>
+        Suggestions or issues? Find me at koonweee#0923<br>
+        <a href = "https://paypal.me/jtkw7">Buy me a coffee</a> (or add to my 3DP fund...)
+        </p>
+    </div>
     <div id="mobileWarn" style="visibility: hidden">
         <p>Unfortunately, this page is currently not optimized for mobile (due to size of the 3D files to be displayed). Please try again on desktop!</p>
     </div>
@@ -74,9 +82,11 @@
             var modelView = new modelViewer();
             modelView.loadAssembly("models/v1.8/assembly.json", "models/v1.8/materials.json")
             Toolbar.addOrbitToggle()
+            Toolbar.addAboutButton()
         }       
         
     </script>
-    <a id=hitsCount href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkoonweee.github.io%2Fvoroncfg%2F&count_bg=%233EA49D&title_bg=%23555555&icon=&icon_color=%232EA054&title=hits&edge_flat=false"/></a>
+    
+    <a id ="hitsCount" href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkoonweee.github.io%2Fvoroncfg%2F&count_bg=%23606060&title_bg=%23127E6D&icon=&icon_color=%23E7E7E7&title=clicky+clicks&edge_flat=false"/></a>
     
 </body>
