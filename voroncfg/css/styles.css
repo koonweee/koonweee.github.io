@@ -50,7 +50,7 @@ text-decoration: none;
 }
 
 li a:hover, .dropdown:hover .dropbtn {
-background-color: rgb(0, 175, 152);
+background-color: rgb(0, 158, 119);
 }
 
 li.dropdown {
@@ -99,6 +99,24 @@ div[id*='colorBox_'] {
     clear: both;
     display: table-cell;
     vertical-align:bottom;
+}
+
+a[class*=active] {
+    background-color: rgb(0, 158, 119);
+}
+
+/* div[id=mobileWarn] {
+    
+} */
+div[id=mobileWarn] p {
+    width:65%;
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
 }
 
 

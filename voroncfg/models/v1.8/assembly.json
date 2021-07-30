@@ -31,7 +31,8 @@
         "clearpanels": {
             "toggle": "Clear panels",
             "src": "clearpanels.stl",
-            "material": "clearPanelsPlastic"
+            "material": "clearPanelsPlastic",
+            "visible": "false" 
         },
         "glossblack": {
             "src": "glossblackv1.stl",

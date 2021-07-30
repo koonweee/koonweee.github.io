@@ -21,6 +21,9 @@ class Materials {
             if (attr != "type") {
                 if (attr.includes("Map")) { //texture needed
                     material[attr] = this.createTexture(cfg[attr])
+                } else if (attr == "diffuse") {
+                    material[attr] = cfg[attr]
+                    material["specular"] = cfg[attr]
                 } else {
                     material[attr] = cfg[attr]
                 }

@@ -39,7 +39,9 @@
 </head>
 
 <body>
-    
+    <script>
+        
+    </script>
     <ul id="toolbar">
         <!-- Toolbar has buttons by default. Dropdowns to be filled by Toolbar.js-->
         <li class="dropdown">
@@ -57,13 +59,22 @@
             <a href="javascript:void(0)" class="dropbtn_active">About</a>
         </li>        
     </ul>
+    <div id="mobileWarn" style="visibility: hidden">
+        <p>Unfortunately, this page is currently not optimized for mobile (due to size of the 3D files to be displayed). Please try again on desktop!</p>
+    </div>
 
     <canvas id="modelViewCanvas"></canvas>
 
     <script>
-        var modelView = new modelViewer();
-        modelView.loadAssembly("models/v1.8/assembly.json", "models/v1.8/materials.json")
-        Toolbar.addOrbitToggle()
+        if (/Mobi/.test(navigator.userAgent)) {
+            console.log("mobile")
+            document.getElementById("mobileWarn").style.visibility = "visible"
+            document.getElementById("toolbar").style.visibility = "hidden"
+        } else {
+            var modelView = new modelViewer();
+            modelView.loadAssembly("models/v1.8/assembly.json", "models/v1.8/materials.json")
+            Toolbar.addOrbitToggle()
+        }       
         
     </script>
     <a id=hitsCount href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkoonweee.github.io%2Fvoroncfg%2F&count_bg=%233EA49D&title_bg=%23555555&icon=&icon_color=%232EA054&title=hits&edge_flat=false"/></a>

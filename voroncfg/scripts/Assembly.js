@@ -15,7 +15,8 @@ class Assembly { // after assembly is constructed, models are all already loaded
             models[id] = new xeogl.STLModel({
                 id: id,
                 src: srcPath + modelCfg.src,
-                material: materials.fixed[modelCfg.material] ? materials.fixed[modelCfg.material] : materials.configurable[modelCfg.material]
+                material: materials.fixed[modelCfg.material] ? materials.fixed[modelCfg.material] : materials.configurable[modelCfg.material],
+                visible: modelCfg.visible
             })
             // if moddle is toggleable, add to toolbar
             if (modelCfg.toggle) {

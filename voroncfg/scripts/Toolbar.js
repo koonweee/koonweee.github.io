@@ -107,10 +107,13 @@ class Toolbar {
         var rgba = this.RGBAtoXeogl(rgbaStr)
         const alpha = rgba.pop()
         if (material instanceof xeogl.MetallicMaterial) {
+            console.log(material)
+            console.log(rgba)
             material.baseColor = rgba
+            material.alpha = alpha
         } else {
-            material.diffuse = rgba
             material.specular = rgba
+            material.diffuse = rgba
             material.alpha = alpha
         }
     }
