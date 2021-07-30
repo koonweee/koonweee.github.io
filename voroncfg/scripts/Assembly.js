@@ -17,15 +17,19 @@ class Assembly { // after assembly is constructed, models are all already loaded
                 src: srcPath + modelCfg.src,
                 material: materials.fixed[modelCfg.material] ? materials.fixed[modelCfg.material] : materials.configurable[modelCfg.material]
             })
+            // if moddle is toggleable, add to toolbar
+            if (modelCfg.toggle) {
+                Toolbar.addToggleOption(modelCfg.toggle, models[id])
+            }
+            // if model is lowest model, update meta
+            if (id == metaCfg.lowestModel) {
+                meta.lowestModel = models[id]
+            }
             // if model is main model, center on origin
             if (id == metaCfg.mainModel) {
                 this.centerOnOrigin(models[id])
                 meta.mainModel = models[id]
             } else {
-                // if model is lowest model, update meta
-                if (id == metaCfg.lowestModel) {
-                    meta.lowestModel = models[id]
-                }
                 // else move to main models position (to align them - IMPT all models must have same origin)
                 // requires main model to be the first in models list in json
                 this.moveToModel(models[id], meta.mainModel)

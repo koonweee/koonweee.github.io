@@ -20,6 +20,7 @@
             "material": "accentPlastic"
         },
         "logo": {
+            "toggle": "Voron logo",
             "src": "logo.stl",
             "material": "accentPlastic"
         },
@@ -28,6 +29,7 @@
             "material": "solidPanelsPlastic"
         },
         "clearpanels": {
+            "toggle": "Clear panels",
             "src": "clearpanels.stl",
             "material": "clearPanelsPlastic"
         },

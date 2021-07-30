@@ -32,17 +32,24 @@
     },
     "configurable": {
         "frameMetal": {
+            "displayName": "Frame",
+            "presets": ["rgba(10,10,10,1)", "rgba(160,160,160,1)"],
             "type": "metallic",
             "baseColor": [0.65, 0.65, 0.65],
+
             "roughness": 0.6
         },
         "solidPanelsPlastic": {
+            "displayName": "Solid panels",
+            "presets": ["rgba(10,10,10,1)", "rgba(30,30,30,1)"],
             "type": "specular",
             "diffuse": [0.12, 0.12, 0.12],
             "specular": [0.12, 0.12, 0.12],
             "glossiness": 0.3
         },
         "clearPanelsPlastic": {
+            "displayName": "Clear panels",
+            "presets": ["rgba(0,0,0,0.2)", "rgba(0,0,0,0.8)"],
             "type": "specular",
             "diffuse": [0, 0, 0],
             "specular": [0.8, 0.8, 0.8],
@@ -51,12 +58,16 @@
             "glossiness": 0.8
         },
         "basePlastic": {
+            "displayName": "Base",
+            "presets": ["rgba(10,10,10,1)", "rgba(30,30,30,1)"],
             "type": "specular",
             "diffuse": [0.058, 0.0941, 0.10196],
             "specular": [0.058, 0.0941, 0.10196],
             "glossiness": 0.15
         },
         "accentPlastic": {
+            "displayName": "Accent",
+            "presets": ["rgba(225,5,5,1)", "rgba(5,5,225,1)"],
             "type": "specular",
             "diffuse": [0.6902, 0.7686, 0.08627],
             "specular": [0.6902, 0.7686, 0.08627],

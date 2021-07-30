@@ -34,9 +34,12 @@ class modelViewer {
         this.cameraControl = new xeogl.CameraControl({
             intertia: 0.2
         }) 
-        this.scene.on("tick", () => {
-            this.camera.orbitYaw(-0.025)
-        })
+        this.orbit = true
+        const orbitFn = () => {
+            if(this.orbit) this.camera.orbitYaw(-0.025)
+        }
+        this.scene.on("tick", orbitFn)
+        
     }
 
     setupLights() {
@@ -134,5 +137,8 @@ class modelViewer {
             material.specular = rgb
             material.alpha = alpha
         })            
+    }
+    toggleOrbit() {
+        this.orbit = !this.orbit      
     }
 }

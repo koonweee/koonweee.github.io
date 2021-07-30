@@ -7,7 +7,10 @@ class Materials {
             materials.fixed[materialCfgKey] = this.createMaterial(cfg.fixed[materialCfgKey])
         })
         Object.keys(cfg.configurable).forEach(materialCfgKey => {
-            materials.configurable[materialCfgKey] = this.createMaterial(cfg.configurable[materialCfgKey])
+            const materialCfg = cfg.configurable[materialCfgKey];
+            const material = this.createMaterial(materialCfg)
+            materials.configurable[materialCfgKey] = material
+            Toolbar.addColorOption(materialCfg.displayName, material, materialCfg.presets)
         })
         return materials
     }

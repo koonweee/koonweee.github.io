@@ -8,17 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     
     <link href="css/styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css"/> <!-- 'monolith' theme -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <!-- Xeogl scripts -->
     <script src="scripts/xeogl/xeogl.js"></script>
     <script src="scripts/xeogl/STLModel.js"></script>
     <script src="scripts/xeogl/glTFModel.js"></script>
     <script src="scripts/xeogl/cameraFollowAnimation.js"></script>
     <!-- Other dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="scripts/jscolor.js"></script>
+    <script src="scripts/Toolbar.js"></script>
     <script src="scripts/Materials.js"></script>
     <script src="scripts/Assembly.js"></script>
     <script src="scripts/modelViewer.js"></script>
-    <!-- <script src="scripts/jscolor.js"></script>
-    <script src="scripts/Toolbar.js"></script> -->
+    
 
     <style>
         body {
@@ -36,27 +40,21 @@
 
 <body>
     
-    <ul id="controlBar">
-        <!-- <li><input type="checkbox" id="toggleVoronBtn" checked></input>voron logo</li>
-        <li><input type="checkbox" id="toggleClearPanelsBtn" checked></input>clear panels</li>
-        <li id=baseColorPicker></li>
-        <li id=accentColorPicker></li>
-        <a id=hitsCount href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkoonweee.github.io%2Fvoroncfg%2F&count_bg=%233EA49D&title_bg=%23555555&icon=&icon_color=%232EA054&title=hits&edge_flat=false"/></a> -->
+    <ul id="toolbar">
+        <!-- Toolbar has buttons by default. Dropdowns to be filled by Toolbar.js-->
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn" id="camera">Camera settings</a>
+            <a href="javascript:void(0)" id="orbitToggle">Toggle camera orbit</a>
         </li>
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn" id="toggles">Turn on/off elements</a>
-            <div class="dropdown-content">
-                <a href="#" id="toggleVoronBtn">Voron logo</a>
-                <a href="#" id="toggleClearPanelsBtn">Clear panels</a>
-            </div>
+            <a href="javascript:void(0)" class="dropbtn">Toggle elements</a>
+            <div id="toggleDrop" class="dropdown-content"></div>
         </li>
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn" id="colors">Color selection</a>
+            <a href="javascript:void(0)" class="dropbtn">Color selection</a>
+            <div id="colorDrop" class="dropdown-content"></div>
         </li>
         <li style="float:right">
-            <a href="javascript:void(0)" class="dropbtn_active" id="moreinfo">About</a>
+            <a href="javascript:void(0)" class="dropbtn_active">About</a>
         </li>        
     </ul>
 
@@ -64,7 +62,9 @@
 
     <script>
         var modelView = new modelViewer();
-        modelView.loadAssembly("models/v1.8/assembly.json", "models/v1.8/materials.json")        
+        modelView.loadAssembly("models/v1.8/assembly.json", "models/v1.8/materials.json")
+        Toolbar.addOrbitToggle()
+        
     </script>
     <a id=hitsCount href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkoonweee.github.io%2Fvoroncfg%2F&count_bg=%233EA49D&title_bg=%23555555&icon=&icon_color=%232EA054&title=hits&edge_flat=false"/></a>
     
