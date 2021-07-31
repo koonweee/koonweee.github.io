@@ -34,7 +34,7 @@ class modelViewer {
         this.cameraControl = new xeogl.CameraControl({
             intertia: 0.2
         }) 
-        this.orbit = true
+        this.orbit = false
         const orbitFn = () => {
             if(this.orbit) this.camera.orbitYaw(-0.025)
         }
