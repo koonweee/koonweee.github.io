@@ -55,8 +55,8 @@
             "material": "steel"
         },
         "screws": {
-            "src": "screws.stl",
-            "material": "steel"
+            "src": "screws.stl?v=2",
+            "material": "screwsMetal"
         }
     }
 }

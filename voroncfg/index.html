@@ -43,7 +43,7 @@
     <ul id="toolbar">
         <!-- Toolbar has buttons by default. Dropdowns to be filled by Toolbar.js-->
         <li class="dropdown">
-            <a href="javascript:void(0)" id="orbitToggle">Toggle camera orbit</a>
+            <a href="javascript:void(0)" id="orbitToggle">Toggle camera rotation</a>
         </li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Toggle elements</a>
@@ -85,6 +85,10 @@
         } else {
             var modelView = new modelViewer();
             var assemblies = {
+                "Voron 0.1": {
+                    assembly: "models/v0.1/assembly.json?v=1",
+                    materials: "models/v0.1/materials.json"
+                },
                 "Voron 1.8": {
                     assembly: "models/v1.8/assembly.json",
                     materials: "models/v1.8/materials.json"
@@ -94,11 +98,12 @@
                     materials: "models/v2.4/materials.json"
                 }                
             }
-            modelView.loadAssembly("models/v2.4/assembly.json", "models/v2.4/materials.json")
-            //modelView.loadAssembly("models/v1.8/assembly.json", "models/v1.8/materials.json")
             Toolbar.addOrbitToggle()
             Toolbar.addAboutButton()
-            Toolbar.addAssemblies(assemblies)
+            modelView.ground.on("loaded", () => {
+                modelView.loadAssembly("models/v2.4/assembly.json", "models/v2.4/materials.json")           
+                Toolbar.addAssemblies(assemblies)
+            })            
         }       
         
     </script>

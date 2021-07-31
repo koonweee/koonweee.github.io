@@ -6,9 +6,11 @@ class modelViewer {
         });
         xeogl.setDefaultScene(scene)
         this.scene = scene
+        this.createGround(0)
         this.setupCamera()
         this.setupLights()
-        this.createGround(700, 300, 0)
+        
+
         this.assemblies = []
         // this.loadMaterials(materialsJson)
         //     .then(this.loadAssembly(assemblyJson)
@@ -82,10 +84,9 @@ class modelViewer {
         var promises = [assemblySrc, materialsSrc].map(src => fetch(src).then(resp => resp.json()))
         // async load both src then pass to Assembly to parse when ready
         Promise.allSettled(promises).then( fulfilled => {
-            var parsed = Assembly.parse(fulfilled[0].value, fulfilled[1].value)
+            var parsed = Assembly.parse(fulfilled[0].value, fulfilled[1].value, this.ground.aabb[5])
             // Assembly returns [id, assemblyObject], to be stored at this.assemblies[id]
-            this.assemblies.push(parsed[1])
-            this.placeOnGround(parsed[1])
+            this.assemblies.push(parsed[1])                
         })
     }
 
@@ -97,13 +98,9 @@ class modelViewer {
         }
     }
 
-    createGround(x, y, zPos) {
-        this.ground = new xeogl.Mesh({
-            geometry: new xeogl.BoxGeometry({
-                xSize: x,
-                ySize: y,
-                zSize: 8
-            }),
+    createGround(zPos) {
+        this.ground = new xeogl.STLModel({
+            src: "models/ground.stl",
             material: new xeogl.SpecularMaterial({
                 diffuse: [0.1, 0.1, 0.1],
                 specular: [0.1, 0.1, 0.1],
@@ -119,14 +116,17 @@ class modelViewer {
     placeOnGround(assembly) { // modifies positions of all models in assembly such that they are "on" ground
         assembly.meta.lowestModel.on("loaded", () => {
             const topOfGround = this.ground.aabb[5]
+            console.log(topOfGround)
             const bottomOfAssembly = assembly.meta.lowestModel.aabb[2]
+            console.log(assembly.meta.lowestModel.aabb)
             const zMovement = topOfGround - bottomOfAssembly //if negative, assembly above ground hence move down
             // apply zmovement ot position of all models in assemnly
+            console.log(zMovement)
 
-            Object.values(assembly.models).forEach(model => {
-                //console.log(model)
-                model.position = [model.position[0], model.position[1], model.position[2] + zMovement]
-            }) 
+            // Object.values(assembly.models).forEach(model => {
+            //     console.log(model)
+            //     model.position = [model.position[0], model.position[1], model.position[2] + zMovement]
+            // }) 
         })        
     }
 
