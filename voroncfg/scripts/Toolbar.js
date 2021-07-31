@@ -38,6 +38,15 @@ $(document).on({
 
 
 class Toolbar {
+    static addAssemblies(assemblies) {
+        Object.keys(assemblies).forEach(assemblyName => {
+            this.createDropdownElement("modelDrop", assemblyName, () => {
+                modelView.unloadAssemblies()
+                modelView.loadAssembly(assemblies[assemblyName].assembly, assemblies[assemblyName].materials)
+            })
+        })
+    }
+
     static addAboutButton() {
         document.getElementById("aboutBtn").onclick = () => {
             document.getElementById("overlay").style.display = "block"
@@ -53,9 +62,11 @@ class Toolbar {
         document.getElementById("orbitToggle").onclick = () => modelView.toggleOrbit()
     }
     static addToggleOption(name, model) { //registers onclick listener to call appropriate function
-        this.createDropdownElement("toggleDrop", name, () => model.visible = !model.visible)
+        var ele = this.createDropdownElement("toggleDrop", name, () => model.visible = !model.visible)
+        return ele
     }
     static addColorOption(name, material, presets) { //registers onclick listener to call appropriate function
+        // create dropdown element and picker
         var ele = this.createDropdownElement("colorDrop", name)
         var colorBox = document.createElement("div")
         colorBox.id = "colorBox_" + name
@@ -73,12 +84,15 @@ class Toolbar {
             }
         })
         picker.fromString(this.xeoglToRGBA(material))
-        ele.addEventListener("mouseover", ()=>picker.show())
-        $(document).on({
-            mouseleave: function () { 
-                picker.hide();    
-            }
-        }, "div.jscolor-picker");
+
+        // create event listeners: mouseover dropdown = show picker, mouseleave picker = hide picker
+        const showPicker = () => picker.show()
+        ele.addEventListener("mouseover", showPicker)
+        return [ele, showPicker]
+    }
+    static removeColorOption(ele, mouseoverFx) {
+        ele.removeEventListener("mouseover", mouseoverFx)
+        ele.remove()
     }
     static createDropdownElement(dropdown, text, fn) {
         const drop = document.getElementById(dropdown)
@@ -92,6 +106,10 @@ class Toolbar {
         }        
         drop.appendChild(a)
         return a;
+    }
+    static removeDropdownElement(ele) {
+        ele.removeAttribute("onclick")
+        ele.remove()
     }
     static xeoglToRGBA(material) {
         var color
@@ -116,8 +134,6 @@ class Toolbar {
         var rgba = this.RGBAtoXeogl(rgbaStr)
         const alpha = rgba.pop()
         if (material instanceof xeogl.MetallicMaterial) {
-            console.log(material)
-            console.log(rgba)
             material.baseColor = rgba
             material.alpha = alpha
         } else {

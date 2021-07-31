@@ -9,7 +9,7 @@ class modelViewer {
         this.setupCamera()
         this.setupLights()
         this.createGround(700, 300, 0)
-        this.assemblies = new Object()
+        this.assemblies = []
         // this.loadMaterials(materialsJson)
         //     .then(this.loadAssembly(assemblyJson)
         //     .then(this.createGround(x, y, this.assembly.lowestModel)))
@@ -84,9 +84,17 @@ class modelViewer {
         Promise.allSettled(promises).then( fulfilled => {
             var parsed = Assembly.parse(fulfilled[0].value, fulfilled[1].value)
             // Assembly returns [id, assemblyObject], to be stored at this.assemblies[id]
-            this.assemblies[parsed[0]] = parsed[1]
+            this.assemblies.push(parsed[1])
             this.placeOnGround(parsed[1])
         })
+    }
+
+    unloadAssemblies() {
+        var assembly = this.assemblies.pop()
+        while(assembly) {
+            assembly.unload()
+            assembly = this.assemblies.pop()
+        }
     }
 
     createGround(x, y, zPos) {

@@ -8,6 +8,7 @@ class Assembly { // after assembly is constructed, models are all already loaded
         var meta = new Object()
         meta.id = assemblyID
         meta.materials = materials
+        meta.toggles = []
         var models = new Object()
         // create a model for each and store in models Object
         Object.keys(loadModels).forEach(id => {
@@ -20,7 +21,7 @@ class Assembly { // after assembly is constructed, models are all already loaded
             })
             // if moddle is toggleable, add to toolbar
             if (modelCfg.toggle) {
-                Toolbar.addToggleOption(modelCfg.toggle, models[id])
+                meta.toggles.push(Toolbar.addToggleOption(modelCfg.toggle, models[id]))
             }
             // if model is lowest model, update meta
             if (id == metaCfg.lowestModel) {
@@ -62,5 +63,16 @@ class Assembly { // after assembly is constructed, models are all already loaded
         this.models = models
     }
 
+    unload() {
+        for (var ele of this.meta.toggles) {
+            Toolbar.removeDropdownElement(ele)
+        }
+        for (var ele of this.meta.materials.toggles) {
+            Toolbar.removeColorOption(ele[0], ele[1])
+        }
+        Object.values(this.models).forEach(model => {
+            model.destroy()
+        })
+    }
     
 }
