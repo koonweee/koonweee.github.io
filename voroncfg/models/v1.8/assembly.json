@@ -35,7 +35,7 @@
             "visible": "false" 
         },
         "glossblack": {
-            "src": "glossblackv1.stl",
+            "src": "glossblack.stl?v=3",
             "material": "blackPlastic"
         },
         "glossred": {
@@ -53,6 +53,10 @@
         "steel": {
             "src": "steel.stl",
             "material": "steel"
+        },
+        "rails": {
+            "src": "rails.stl",
+            "material": "railsMetal"
         },
         "screws": {
             "src": "screws.stl?v=2",

@@ -49,6 +49,10 @@
             "src": "steel.stl?v=3",
             "material": "steel"
         },
+        "rails": {
+            "src": "rails.stl",
+            "material": "railsMetal"
+        },
         "screws": {
             "src": "screws.stl?v=2",
             "material": "screwsMetal"

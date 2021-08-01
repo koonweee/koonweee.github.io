@@ -72,6 +72,13 @@
             "type": "metallic",
             "baseColor": [0.85, 0.85, 0.85],
             "roughness": 0.6
+		},
+		"railsMetal": {
+			"displayName": "Linear rails",
+            "presets": ["rgba(10,10,10,1)", "rgba(160,160,160,1)"],
+            "type": "metallic",
+            "baseColor": [0.85, 0.85, 0.85],
+            "roughness": 0.6
 		}
     }    
 }
