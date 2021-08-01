@@ -61,39 +61,11 @@ class Toolbar {
     static addOrbitToggle() { //registers onclick listener to call appropriate function
         document.getElementById("orbitToggle").onclick = () => modelView.toggleOrbit()
     }
-    static addToggleOption(name, model) { //registers onclick listener to call appropriate function
-        var ele = this.createDropdownElement("toggleDrop", name, () => model.visible = !model.visible)
-        return ele
-    }
-    static addColorOption(name, material, presets) { //registers onclick listener to call appropriate function
-        // create dropdown element and picker
-        var ele = this.createDropdownElement("colorDrop", name)
-        var colorBox = document.createElement("div")
-        colorBox.id = "colorBox_" + name
-        ele.appendChild(colorBox)
-        ele.appendChild(document.createElement("br"))
-        var colorInput = document.createElement("input")
-        colorInput.type = "text"
-        colorInput.setAttribute("size", "15")
-        ele.appendChild(colorInput)
-        var picker = new JSColor(ele, {
-            previewElement: colorBox,
-            valueElement: colorInput,
-            onInput: () =>  {
-                this.updateMaterialColor(picker.toRGBAString(), material)
-            }
-        })
-        picker.fromString(this.xeoglToRGBA(material))
 
-        // create event listeners: mouseover dropdown = show picker, mouseleave picker = hide picker
-        const showPicker = () => picker.show()
-        ele.addEventListener("mouseover", showPicker)
-        return [ele, showPicker]
-    }
-    static removeColorOption(ele, mouseoverFx) {
-        ele.removeEventListener("mouseover", mouseoverFx)
-        ele.remove()
-    }
+    static addDeskToggle(desk) {
+        this.createDropdownElement("toggleDrop", "Desk", () => desk.visible = !desk.visible)
+    } 
+
     static createDropdownElement(dropdown, text, fn) {
         const drop = document.getElementById(dropdown)
         var a = document.createElement("a")
@@ -106,10 +78,6 @@ class Toolbar {
         }        
         drop.appendChild(a)
         return a;
-    }
-    static removeDropdownElement(ele) {
-        ele.removeAttribute("onclick")
-        ele.remove()
     }
     static xeoglToRGBA(material) {
         var color
@@ -140,6 +108,63 @@ class Toolbar {
             material.specular = rgba
             material.diffuse = rgba
             material.alpha = alpha
+        }
+    }
+
+    // manages toolbar entities that are specific to an assembly, allow for cleaner load and unload
+    constructor() {
+        this.toggles = new Object()
+        this.colorPickers = [] 
+    }
+
+    addToggleOption(name, model) { //registers onclick listener to call appropriate function
+        if (this.toggles[name]) { // toggle with this name already exists, add more models for this toggle to change
+            this.toggles[name].models.push(model)
+        } else { // this toggle does not exists, create toggle and array of models to toggle (currently just one model)
+            this.toggles[name] = new Object()
+            this.toggles[name].models = [model]
+            this.toggles[name].ele = Toolbar.createDropdownElement("toggleDrop", name, () => {
+                for (var target of this.toggles[name].models) {
+                    target.visible = !target.visible
+                }
+            })
+        }
+    }
+    unloadToggles() {
+        Object.values(this.toggles).forEach(toggle => {
+            toggle.ele.removeAttribute("onclick")
+            toggle.ele.remove()
+        })
+    }
+    addColorPicker(name, material, presets) { //registers onclick listener to call appropriate function
+        // create dropdown element and picker
+        var ele = Toolbar.createDropdownElement("colorDrop", name)
+        var colorBox = document.createElement("div")
+        colorBox.id = "colorBox_" + name
+        ele.appendChild(colorBox)
+        ele.appendChild(document.createElement("br"))
+        var colorInput = document.createElement("input")
+        colorInput.type = "text"
+        colorInput.setAttribute("size", "15")
+        ele.appendChild(colorInput)
+        var picker = new JSColor(ele, {
+            previewElement: colorBox,
+            valueElement: colorInput,
+            onInput: () =>  {
+                Toolbar.updateMaterialColor(picker.toRGBAString(), material)
+            }
+        })
+        picker.fromString(Toolbar.xeoglToRGBA(material))
+
+        // create event listeners: mouseover dropdown = show picker, mouseleave picker = hide picker
+        const showPicker = () => picker.show()
+        ele.addEventListener("mouseover", showPicker)
+        this.colorPickers.push([ele, showPicker])
+    }
+    unloadColorPickers() {
+        for (var colorPicker of this.colorPickers) {
+            colorPicker[0].removeEventListener("mouseover", colorPicker[1])
+            colorPicker[0].remove()
         }
     }
 }

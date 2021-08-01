@@ -1,6 +1,7 @@
 class Assembly { // after assembly is constructed, models are all already loaded (due to waiting to move them to main model)
     static parse(assemblyCfg, materialsCfg, groundMaxZ) { // parses the json cfg and returns a modelHelper
-        var materials = Materials.parse(materialsCfg)
+        toolbar = new Toolbar()
+        var materials = Materials.parse(materialsCfg, toolbar)
         const metaCfg = assemblyCfg.meta
         const assemblyID = metaCfg.assemblyID
         const srcPath = metaCfg.srcPath
@@ -36,11 +37,11 @@ class Assembly { // after assembly is constructed, models are all already loaded
                 })
                 // if moddle is toggleable, add to toolbar
                 if (modelCfg.toggle) {
-                    meta.toggles.push(Toolbar.addToggleOption(modelCfg.toggle, models[id]))
+                    toolbar.addToggleOption(modelCfg.toggle, models[id])
                 }
             })
         })
-        return [assemblyID, new Assembly(meta, models)]   
+        return [assemblyID, new Assembly(meta, models, toolbar)]   
     }
 
     static centerOnOrigin(model) {
@@ -64,18 +65,15 @@ class Assembly { // after assembly is constructed, models are all already loaded
         })
     }
 
-    constructor(meta, models) {
+    constructor(meta, models, toolbar) {
         this.meta = meta
         this.models = models
+        this.toolbar = toolbar
     }
 
     unload() {
-        for (var ele of this.meta.toggles) {
-            Toolbar.removeDropdownElement(ele)
-        }
-        for (var ele of this.meta.materials.toggles) {
-            Toolbar.removeColorOption(ele[0], ele[1])
-        }
+        this.toolbar.unloadToggles()
+        this.toolbar.unloadColorPickers()
         Object.values(this.models).forEach(model => {
             model.destroy()
         })

@@ -1,9 +1,8 @@
 class Materials {
-    static parse(cfg) {
+    static parse(cfg, toolbar) {
         var materials = new Object() // dictionary for materials
         materials.fixed = new Object()
         materials.configurable = new Object()
-        materials.toggles = []
         Object.keys(cfg.fixed).forEach(materialCfgKey => {
             materials.fixed[materialCfgKey] = this.createMaterial(cfg.fixed[materialCfgKey])
         })
@@ -11,7 +10,7 @@ class Materials {
             const materialCfg = cfg.configurable[materialCfgKey];
             const material = this.createMaterial(materialCfg)
             materials.configurable[materialCfgKey] = material
-            materials.toggles.push(Toolbar.addColorOption(materialCfg.displayName, material, materialCfg.presets))
+            toolbar.addColorPicker(materialCfg.displayName, material, materialCfg.presets)
         })
         return materials
     }

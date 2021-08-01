@@ -110,7 +110,7 @@ class modelViewer {
             collidable: false,
             pickable: false
         });
-        Toolbar.addToggleOption("Desk", this.ground)
+        Toolbar.addDeskToggle(this.ground)
     }
 
     placeOnGround(assembly) { // modifies positions of all models in assembly such that they are "on" ground

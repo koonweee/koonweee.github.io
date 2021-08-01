@@ -1,0 +1,72 @@
+{
+    "description": "Assembly data for vsw model",
+    "meta": {
+        "assemblyID": "vsw",
+        "srcPath": "models/vsw/",
+        "mainModel": "frame",
+        "lowestModel": "black"
+    },
+    "models": {
+        "frame": {
+            "src": "frame.stl?v=1",
+            "material": "frameMetal"
+        },
+        "base": {
+            "src": "base.stl",
+            "material": "basePlastic"
+        },
+        "enclosurebase": {
+			"toggle": "Enclosure",
+            "src": "enclosurebase.stl",
+            "material": "basePlastic"
+        },
+        "accent": {
+            "src": "accent.stl",
+            "material": "accentPlastic"
+        },
+        "solidpanels": {
+            "src": "solidpanels.stl",
+            "material": "solidPanelsPlastic"
+        },
+        "enclosurepanels": {
+			"toggle": "Enclosure",
+            "src": "enclosurepanels.stl",
+            "material": "solidPanelsPlastic"
+        },
+        "clearpanels": {
+            "toggle": "Enclosure",
+            "src": "clearpanels.stl",
+            "material": "clearPanelsPlastic",
+            "visible": "false" 
+        },
+        "black": {
+            "src": "black.stl",
+            "material": "blackPlastic"
+        },
+        "red": {
+            "src": "red.stl",
+            "material": "redPlastic"
+        },
+        "white": {
+            "src": "white.stl",
+            "material": "whitePlastic"
+        },
+        "brass": {
+            "src": "brass.stl",
+            "material": "brass"
+        },
+        "steel": {
+            "src": "steel.stl",
+            "material": "steel"
+        },
+        "screws": {
+            "src": "fasteners.stl",
+            "material": "screwsMetal"
+        },
+        "enclosurescrews": {
+			"toggle": "Enclosure",
+            "src": "enclosurescrews.stl",
+            "material": "screwsMetal"
+        }
+    }
+}
