@@ -30,7 +30,7 @@
             "visible": "false" 
         },
         "black": {
-            "src": "black.stl?v=3",
+            "src": "black.stl?v=4",
             "material": "blackPlastic"
         },
         "red": {
