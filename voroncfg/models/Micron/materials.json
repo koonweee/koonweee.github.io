@@ -13,12 +13,12 @@
         },
         "bluePlastic": {
             "type": "specular",
-            "diffuse": [0.02, 0.02, 0.8],
+            "diffuse": [0.38, 0.42, 0.7],
             "glossiness": 0.2
         },
         "whitePlastic": {
             "type": "specular",
-            "diffuse": [0.7, 0.7, 0.7],
+            "diffuse": [0.5, 0.5, 0.5],
             "glossiness": 0.2
         },
         "brass": {
