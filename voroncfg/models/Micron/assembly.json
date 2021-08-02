@@ -8,15 +8,15 @@
     },
     "models": {
         "frame": {
-            "src": "frame.stl?v=2",
+            "src": "frame.stl?v=3",
             "material": "frameMetal"
         },
         "base": {
-            "src": "base.stl?v=4",
+            "src": "base.stl?v=3",
             "material": "basePlastic"
         },
         "accent": {
-            "src": "accent.stl?v=2",
+            "src": "accent.stl?v=3",
             "material": "accentPlastic"
         },
         "solidpanels": {
@@ -50,7 +50,7 @@
             "material": "brass"
         },
         "steel": {
-            "src": "steel.stl?v=4",
+            "src": "steel.stl?v=5",
             "material": "steel"
         },
         "rails": {
