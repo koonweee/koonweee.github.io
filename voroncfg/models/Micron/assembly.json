@@ -12,7 +12,7 @@
             "material": "frameMetal"
         },
         "base": {
-            "src": "base.stl?v=2",
+            "src": "base.stl?v=4",
             "material": "basePlastic"
         },
         "accent": {
@@ -30,7 +30,7 @@
             "visible": "false" 
         },
         "black": {
-            "src": "black.stl?v=2",
+            "src": "black.stl?v=3",
             "material": "blackPlastic"
         },
         "red": {
@@ -38,7 +38,7 @@
             "material": "redPlastic"
         },
         "white": {
-            "src": "white.stl?v=2",
+            "src": "white.stl?v=3",
             "material": "whitePlastic"
         },
         "blue": {
@@ -50,7 +50,7 @@
             "material": "brass"
         },
         "steel": {
-            "src": "steel.stl?v=3",
+            "src": "steel.stl?v=4",
             "material": "steel"
         },
         "rails": {
