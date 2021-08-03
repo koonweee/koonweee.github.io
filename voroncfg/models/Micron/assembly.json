@@ -4,61 +4,62 @@
         "assemblyID": "Micron",
         "srcPath": "models/Micron/",
         "mainModel": "frame",
-        "lowestModel": "black"
+        "lowestModel": "black",
+        "highestModel": "base"
     },
     "models": {
         "frame": {
-            "src": "frame.stl?v=3",
+            "src": "frame.stl?v=4",
             "material": "frameMetal"
         },
         "base": {
-            "src": "base.stl?v=3",
+            "src": "base.stl?v=4",
             "material": "basePlastic"
         },
         "accent": {
-            "src": "accent.stl?v=3",
+            "src": "accent.stl?v=4",
             "material": "accentPlastic"
         },
         "solidpanels": {
-            "src": "solidpanels.stl?v=2",
+            "src": "solidpanels.stl?v=4",
             "material": "solidPanelsPlastic"
         },
         "clearpanels": {
             "toggle": "Clear panels",
-            "src": "clearpanels.stl?v=2",
+            "src": "clearpanels.stl?v=4",
             "material": "clearPanelsPlastic",
             "visible": "false" 
         },
         "black": {
-            "src": "black.stl?v=4",
+            "src": "black.stl?v=5",
             "material": "blackPlastic"
         },
         "red": {
-            "src": "red.stl?v=2",
+            "src": "red.stl?v=4",
             "material": "redPlastic"
         },
         "white": {
-            "src": "white.stl?v=3",
+            "src": "white.stl?v=4",
             "material": "whitePlastic"
         },
         "blue": {
-            "src": "blue.stl?v=2",
+            "src": "blue.stl?v=4",
             "material": "bluePlastic"
         },
         "brass": {
-            "src": "brass.stl?v=2",
+            "src": "brass.stl?v=4",
             "material": "brass"
         },
         "steel": {
-            "src": "steel.stl?v=5",
+            "src": "steel.stl?v=6",
             "material": "steel"
         },
         "rails": {
-            "src": "rails.stl",
+            "src": "rails.stl?v=4",
             "material": "railsMetal"
         },
         "screws": {
-            "src": "screws.stl?v=2",
+            "src": "screws.stl?v=4",
             "material": "screwsMetal"
         }
     }
