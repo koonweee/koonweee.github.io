@@ -12,8 +12,8 @@ class Toolbar {
     static addAssemblies(assemblies) {
         Object.keys(assemblies).forEach(assemblyName => {
             this.createDropdownElement("modelDrop", assemblyName, () => {
-                modelView.unloadAssemblies()
-                modelView.loadAssembly(assemblies[assemblyName].assembly, assemblies[assemblyName].materials)
+                model_viewer.unloadAssembly()
+                model_viewer.loadAssembly(assemblies[assemblyName].assembly, assemblies[assemblyName].materials)
             })
         })
     }
@@ -62,6 +62,11 @@ class Toolbar {
         }))
     }
 
+    removeModelToggle(ele) {
+        ele.removeAttribute("onclick")
+        ele.remove()
+    }
+
     addColorPicker(material, displayText, initialColor) {
         const id = "#colorPicker_" + Toolbar.guidGenerator()
         var dropdownEle = Toolbar.createDropdownElement("colorDrop", displayText)
@@ -90,6 +95,17 @@ class Toolbar {
         })
         jqueryEle.spectrum("set", initialColor)
         this.colorPickers.push(dropdownEle)
+    }
+
+    removeColorPicker(ele) {
+        const colorPickerID = ele.getElementsByTagName("input")[0].id
+        $("#" + colorPickerID).spectrum("destroy")
+        ele.remove()
+    }
+
+    unload() {
+        this.toggles.forEach(toggle => this.removeModelToggle(toggle))
+        this.colorPickers.forEach(colorPicker => this.removeColorPicker(colorPicker))
     }
 
 }

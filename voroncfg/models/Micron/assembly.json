@@ -2,7 +2,10 @@
     "description": "Assembly data for Micron model",
     "meta": {
         "assemblyID": "Micron",
-        "srcPath": "models/Micron/"
+        "srcPath": "models/Micron/",
+        "height": 375,
+        "width": 260,
+        "depth": 260
     },
     "models": {
         "frame": {
@@ -14,7 +17,7 @@
             "material": "basePlastic"
         },
         "accent": {
-            "src": "accent.glb?v=5",
+            "src": "accent.glb?v=4",
             "material": "accentPlastic"
         },
         "solidpanels": {
@@ -48,7 +51,7 @@
             "material": "brass"
         },
         "steel": {
-            "src": "steel.glb?v=7",
+            "src": "steel.glb?v=6",
             "material": "steel"
         },
         "rails": {

@@ -2,9 +2,15 @@ class Assembly { // for now, all assemblies are assumed to be centered on origin
     constructor(meta, models, toolbar) {
         this.meta = meta
         this.models = models
+        this.toolbar = toolbar
     }
 
-
+    unload() {
+        this.toolbar.unload()
+        Object.values(this.models).forEach(model => {
+            model_viewer.scene.remove(model)
+        })
+    }
 
     static parse(assemblyCfg, materialsCfg) { // parses the Assembly cfg and returns an assembly (loads all models from assembly into scene)
         const metaCfg = assemblyCfg.meta
@@ -15,6 +21,9 @@ class Assembly { // for now, all assemblies are assumed to be centered on origin
         var meta = new Object()
         meta.id = assemblyID
         meta.materials = Materials.parse(materialsCfg, toolbar)
+        meta.height = metaCfg.height
+        meta.width = metaCfg.width
+        meta.depth = metaCfg.depth
         var models = new Object()
 
         const loader = new THREE.GLTFLoader()
@@ -25,7 +34,7 @@ class Assembly { // for now, all assemblies are assumed to be centered on origin
             // TODO: add to toggle bar
         })
         // TODO: wait until all loaded before returning assembly
-        return new Assembly(meta, models)  
+        return new Assembly(meta, models, toolbar)  
     }
 
     static loadGLTF(loader, srcPath, modelCfg, modelKey, materials, modelDict, toolbar, callback) { // loads a gltf model with given params, adding itself into the modelDict when loaded

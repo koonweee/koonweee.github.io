@@ -12,9 +12,6 @@
     <ul id="toolbar">
         <!-- Toolbar has buttons by default. Dropdowns to be filled by Toolbar.js-->
         <li class="dropdown">
-            <a href="javascript:void(0)" id="orbitToggle">Toggle camera rotation</a>
-        </li>
-        <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Toggle elements</a>
             <div id="toggleDrop" class="dropdown-content"></div>
         </li>
@@ -44,6 +41,29 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
     <script src="scripts/Toolbar.js"></script>
     <script>
+        var assemblies = {
+            // "Voron 0.1": {
+            //     assembly: "models/v0.1/assembly.json?v=3",
+            //     materials: "models/v0.1/materials.json?v=2"
+            // },
+            // "Voron 1.8": {
+            //     assembly: "models/v1.8/assembly.json?v=4",
+            //     materials: "models/v1.8/materials.json?v=3"
+            // },
+            // "Voron 2.4": {
+            //     assembly: "models/v2.4/assembly.json?v=3",
+            //     materials: "models/v2.4/materials.json?v=3"
+            // },
+            // "Voron Switchwire": {
+            //     assembly: "models/vsw/assembly.json?v=6",
+            //     materials: "models/vsw/materials.json?v=3"
+            // },
+            "Micron": {
+                assembly: "models/Micron/assembly.json?v=8",
+                materials: "models/Micron/materials.json?v=7"
+            }                 
+        }
+        Toolbar.addAssemblies(assemblies)
         Toolbar.addAboutButton()
     </script>
 
@@ -56,6 +76,6 @@
     <script src="scripts/Assembly.js"></script>    
     <script>
         const model_viewer = new ModelViewer(document.getElementById("ModelViewerCanvas"))
-        model_viewer.loadAssembly("./models/test/assembly.json?v=1", "./models/test/materials.json?v=1")
+        model_viewer.loadAssembly("./models/Micron/assembly.json?v=1", "./models/Micron/materials.json?v=1")
     </script>
 </body>
