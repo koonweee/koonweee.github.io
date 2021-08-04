@@ -1,0 +1,156 @@
+class ModelViewer {
+    constructor(canvasEle) {
+        this.container = document.getElementById("ModelViewerContainer")
+        this.initiateRenderer(canvasEle) 
+        this.initiateCamera()
+        window.addEventListener('resize', () => this.onWindowResize(), false); // handles window resizing, updating both render canvas size and camera projection
+        this.initiateControls()
+        this.initiateScene()
+        this.loading = false
+        this.assemblies = []
+
+        this.basePlastic = new THREE.MeshStandardMaterial({
+            color: 0x0000ff,
+            metalness: 0.5
+        });
+                
+        const render = () => {
+            this.renderer.render(this.scene, this.camera);
+            requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render);
+    }
+
+    onWindowResize() {
+        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+    }
+
+    initiateRenderer(canvasEle) {
+        this.canvas = canvasEle
+        this.renderer = new THREE.WebGLRenderer({
+            canvas: this.canvas,
+            antialias: true
+        })
+        this.renderer.setClearColor( 0xffffff );
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.outputEncoding = THREE.sRGBEncoding; // for gltf
+    }
+
+    initiateCamera() {
+        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 100, 1250)
+        // this.camera.position.set(0, 240, 650)
+        // this.camera.lookAt(new THREE.Vector3(0,170,0)); 
+        
+    }  
+
+    initiateControls() {
+        this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement)
+        // this.controls.target = new THREE.Vector3(0,170,0)
+        this.controls.maxDistance = 1000
+        this.controls.update()
+    }
+
+    initiateScene() {
+        this.scene = new THREE.Scene()
+        this.scene.background = new THREE.Color('grey')
+        // const axesHelper = new THREE.AxesHelper(375);
+        // this.scene.add(axesHelper)
+    }    
+
+    initiateSpotlights(xLen, yMax, zLen) { // object centered on x and z
+        const midY = yMax / 2
+        const zMax = zLen / 2
+        const xMax = xLen / 2
+
+        const spotFront = new THREE.SpotLight(
+            0xffffff,
+            0.9,
+            0,
+            1.57
+            );
+        spotFront.position.set(0, yMax + 400, zMax + 1000)
+        spotFront.target.position.set(0, midY, 100)
+        spotFront.target.updateMatrixWorld()
+        this.scene.add(spotFront)
+
+        const spotBack = new THREE.SpotLight(
+            0xffffff,
+            0.8,
+            0,
+            1.57
+            );
+        spotBack.position.set(0, yMax + 400, -(zMax + 1000))
+        spotFront.target.position.set(0, midY, -100)
+        spotBack.target.updateMatrixWorld()
+        this.scene.add(spotBack)
+
+        const spotLeft = new THREE.SpotLight(
+            0xffffff,
+            0.8,
+            0,
+            1.57
+            );
+        spotLeft.position.set(-(xMax + 1000), yMax + 400, 0)
+        spotFront.target.position.set(0, midY, 0)
+        spotLeft.target.updateMatrixWorld()
+        this.scene.add(spotLeft)
+
+        const spotRight = new THREE.SpotLight(
+            0xffffff,
+            0.8,
+            0,
+            1.57
+            );
+        spotRight.position.set(xMax + 1000, yMax + 400, 0)
+        spotFront.target.position.set(0, midY, 0)
+        spotRight.target.updateMatrixWorld()
+        this.scene.add(spotRight)
+
+        const spotBottom = new THREE.SpotLight(
+            0xffffff,
+            0.6,
+            0,
+            1.57
+            );
+        spotBottom.position.set(0, - (yMax+ 400), 0)
+        spotFront.target.position.set(0, midY, 0)
+        spotBottom.target.updateMatrixWorld()
+        this.scene.add(spotBottom)
+        this.activeLights = [spotFront, spotBack, spotLeft, spotRight, spotBottom]     
+    }
+
+    frameAssembly(yMax, zLen) {
+        //tan(45deg) = 0.414 * camera distance from front of model = 1/2 height
+        // cam distance from front of model = (0.5*height) / 0.414
+        const camZFromModelFront = 0.5 * yMax / 0.414
+        const camZ = camZFromModelFront * 1.25 + zLen / 2
+        const camY = yMax / 2
+        const camX = 0
+        this.camera.position.set(camX, camY, camZ)
+        const lookAtVector = new THREE.Vector3(0, camY, 0)
+        this.camera.lookAt(lookAtVector)
+        this.controls.target = lookAtVector
+        this.controls.update()
+        // camera height is height/2
+        // focus point and control target is (0, height/2, 0)
+    }
+
+    loadAssembly(assemblySrc, materialsSrc) {
+        var promises = [assemblySrc, materialsSrc].map(src => fetch(src).then(resp => resp.json()))
+        // wait for both assembly json and materials json to be fetched
+        Promise.allSettled(promises).then( fulfilled => {
+            var assembly = Assembly.parse(fulfilled[0].value, fulfilled[1].value) // pass assembly and material cfg objects to relevant parsers
+            this.assemblies.push(assembly)
+            this.initiateSpotlights(assembly.meta.width, assembly.meta.height, assembly.meta.depth)
+            this.frameAssembly(assembly.meta.height, assembly.meta.depth)         
+        })
+    }
+
+    unloadAssembly() {
+        const assembly = this.assemblies.pop()
+        assembly.unload()
+        this.activeLights.forEach(light => this.scene.remove(light))
+    }
+}
