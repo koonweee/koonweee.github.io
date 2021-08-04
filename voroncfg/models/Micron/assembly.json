@@ -2,64 +2,61 @@
     "description": "Assembly data for Micron model",
     "meta": {
         "assemblyID": "Micron",
-        "srcPath": "models/Micron/",
-        "mainModel": "frame",
-        "lowestModel": "black",
-        "highestModel": "base"
+        "srcPath": "models/Micron/"
     },
     "models": {
         "frame": {
-            "src": "frame.stl?v=4",
+            "src": "frame.glb?v=4",
             "material": "frameMetal"
         },
         "base": {
-            "src": "base.stl?v=4",
+            "src": "base.glb?v=4",
             "material": "basePlastic"
         },
         "accent": {
-            "src": "accent.stl?v=4",
+            "src": "accent.glb?v=5",
             "material": "accentPlastic"
         },
         "solidpanels": {
-            "src": "solidpanels.stl?v=4",
+            "src": "solidpanels.glb?v=4",
             "material": "solidPanelsPlastic"
         },
         "clearpanels": {
             "toggle": "Clear panels",
-            "src": "clearpanels.stl?v=4",
+            "src": "clearpanels.glb?v=4",
             "material": "clearPanelsPlastic",
             "visible": "false" 
         },
         "black": {
-            "src": "black.stl?v=5",
+            "src": "black.glb?v=5",
             "material": "blackPlastic"
         },
         "red": {
-            "src": "red.stl?v=4",
+            "src": "red.glb?v=4",
             "material": "redPlastic"
         },
         "white": {
-            "src": "white.stl?v=4",
+            "src": "white.glb?v=4",
             "material": "whitePlastic"
         },
         "blue": {
-            "src": "blue.stl?v=4",
+            "src": "blue.glb?v=4",
             "material": "bluePlastic"
         },
         "brass": {
-            "src": "brass.stl?v=4",
+            "src": "brass.glb?v=4",
             "material": "brass"
         },
         "steel": {
-            "src": "steel.stl?v=6",
+            "src": "steel.glb?v=7",
             "material": "steel"
         },
         "rails": {
-            "src": "rails.stl?v=4",
+            "src": "rails.glb?v=4",
             "material": "railsMetal"
         },
         "screws": {
-            "src": "screws.stl?v=4",
+            "src": "screws.glb?v=4",
             "material": "screwsMetal"
         }
     }

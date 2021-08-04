@@ -1,45 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head> <!-- For site metadata-->
-    <title>Voron 3D Configurator</title>
-
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     
     <link href="css/styles.css" rel="stylesheet"/>
-    <!-- Xeogl scripts -->
-    <script src="scripts/xeogl/xeogl.js"></script>
-    <script src="scripts/xeogl/STLModel.js"></script>
-    <script src="scripts/xeogl/glTFModel.js"></script>
-    <script src="scripts/xeogl/cameraFollowAnimation.js"></script>
-    <!-- Other dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="scripts/jscolor.js"></script>
-    <script src="scripts/Toolbar.js"></script>
-    <script src="scripts/Materials.js"></script>
-    <script src="scripts/Assembly.js"></script>
-    <script src="scripts/modelViewer.js"></script>
-    
-
-    <style>
-        body {
-            background-color: rgb(127, 127, 127);
-            background-size: 100%;
-            background-repeat: repeat;
-        }
-        canvas {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
 </head>
 
 <body>
-    <script>
-        
-    </script>
+
     <ul id="toolbar">
         <!-- Toolbar has buttons by default. Dropdowns to be filled by Toolbar.js-->
         <li class="dropdown">
@@ -64,58 +33,29 @@
     <div id="overlayBg"></div>
     <div id="overlay">
         <p>
-        xeolabs' <a href = "https://github.com/xeolabs/xeogl">xeogl</a> - 3D scenes loader<br>
+        <a href = "https://github.com/mrdoob/three.js/">three.js</a> - 3D scenes loader<br>
         <a href="https://github.com/EastDesire/jscolor">jscolor</a> - color picker<br>
-        <a href="https://github.com/VoronDesign">Voron Design</a> - 3D model<br><br>
+        Various designers/community members - 3D models<br><br>
         Suggestions or issues? Find me at koonweee#0923<br>
         <a href = "https://paypal.me/jtkw7">Buy me a coffee</a> (or add to my 3DP fund...)
         </p>
     </div>
-    <div id="mobileWarn" style="visibility: hidden">
-        <p>Unfortunately, this page is currently not optimized for mobile (due to size of the 3D files to be displayed). Please try again on desktop!</p>
-    </div>
-
-    <canvas id="modelViewCanvas"></canvas>
-
+    <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
+    <script src="scripts/Toolbar.js"></script>
     <script>
-        if (/Mobi/.test(navigator.userAgent)) {
-            console.log("mobile")
-            document.getElementById("mobileWarn").style.visibility = "visible"
-            document.getElementById("toolbar").style.visibility = "hidden"
-        } else {
-            var modelView = new modelViewer();
-            var assemblies = {
-                "Voron 0.1": {
-                    assembly: "models/v0.1/assembly.json?v=3",
-                    materials: "models/v0.1/materials.json?v=2"
-                },
-                "Voron 1.8": {
-                    assembly: "models/v1.8/assembly.json?v=4",
-                    materials: "models/v1.8/materials.json?v=3"
-                },
-                "Voron 2.4": {
-                    assembly: "models/v2.4/assembly.json?v=3",
-                    materials: "models/v2.4/materials.json?v=3"
-                },
-                "Voron Switchwire": {
-                    assembly: "models/vsw/assembly.json?v=6",
-                    materials: "models/vsw/materials.json?v=3"
-                },
-                "Micron": {
-                    assembly: "models/Micron/assembly.json?v=8",
-                    materials: "models/Micron/materials.json?v=7"
-                }                 
-            }
-            Toolbar.addOrbitToggle()
-            Toolbar.addAboutButton()
-            modelView.ground.on("loaded", () => {
-                modelView.loadAssembly("models/v2.4/assembly.json", "models/v2.4/materials.json")           
-                Toolbar.addAssemblies(assemblies)
-            })            
-        }       
-        
+        Toolbar.addAboutButton()
     </script>
-    
-    <a id ="hitsCount" href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkoonweee.github.io%2Fvoroncfg%2F&count_bg=%23606060&title_bg=%23127E6D&icon=&icon_color=%23E7E7E7&title=clicky+clicks&edge_flat=false"/></a>
-    
+
+    <container id="ModelViewerContainer"><canvas id="ModelViewerCanvas"></canvas></container>
+    <script src="./scripts/threejs/build/three.js"></script>
+    <script src="./scripts/threejs/examples/js/controls/OrbitControls.js"></script>
+    <script src="./scripts/threejs/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="scripts/ModelViewer.js"></script>
+    <script src="scripts/Materials.js"></script>
+    <script src="scripts/Assembly.js"></script>    
+    <script>
+        const model_viewer = new ModelViewer(document.getElementById("ModelViewerCanvas"))
+        model_viewer.loadAssembly("./models/test/assembly.json?v=1", "./models/test/materials.json?v=1")
+    </script>
 </body>
