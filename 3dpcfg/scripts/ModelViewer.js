@@ -1,6 +1,8 @@
 class ModelViewer {
     constructor(canvasEle) {
         this.container = document.getElementById("ModelViewerContainer")
+        var toolbarHeight = document.getElementById("toolbar").offsetHeight
+        this.container.height = (window.innerHeight - toolbarHeight)
         this.initiateRenderer(canvasEle) 
         this.initiateCamera()
         window.addEventListener('resize', () => this.onWindowResize(), false); // handles window resizing, updating both render canvas size and camera projection
@@ -22,19 +24,24 @@ class ModelViewer {
     }
 
     onWindowResize() {
-        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+        var toolbarHeight = document.getElementById("toolbar").offsetHeight
+        console.log(toolbarHeight)
+        console.log(window.innerHeight)
+        this.camera.aspect = this.container.clientWidth / (window.innerHeight - toolbarHeight);
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.renderer.setSize(this.container.clientWidth, (window.innerHeight - toolbarHeight));
     }
 
     initiateRenderer(canvasEle) {
+        this.container = document.getElementById("ModelViewerContainer")
+        var toolbarHeight = document.getElementById("toolbar").offsetHeight
         this.canvas = canvasEle
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true
         })
         this.renderer.setClearColor( 0xffffff );
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(window.innerWidth, window.innerHeight - toolbarHeight);
         this.renderer.outputEncoding = THREE.sRGBEncoding; // for gltf
     }
 
