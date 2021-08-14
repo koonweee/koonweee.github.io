@@ -74,7 +74,7 @@ class ModelViewer {
 
         const spotFront = new THREE.SpotLight(
             0xffffff,
-            0.9,
+            0.70,
             0,
             1.57
             );
@@ -96,7 +96,7 @@ class ModelViewer {
 
         const spotLeft = new THREE.SpotLight(
             0xffffff,
-            0.8,
+            0.75,
             0,
             1.57
             );
@@ -107,7 +107,7 @@ class ModelViewer {
 
         const spotRight = new THREE.SpotLight(
             0xffffff,
-            0.8,
+            0.75,
             0,
             1.57
             );
