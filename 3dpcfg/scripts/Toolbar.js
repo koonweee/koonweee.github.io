@@ -74,6 +74,14 @@ class Toolbar {
         colorpicker.id = id.replace("#","")
         dropdownEle.appendChild(colorpicker)
         const jqueryEle = $(id)
+
+        // check if localstorage contains color for this material (key is display text)
+        var storedColor = window.localStorage.getItem(displayText)
+        if (storedColor != null) {
+            storedColor = JSON.parse(storedColor)
+            initialColor = storedColor // update initial color for picker
+            this.spectrumToMaterial(storedColor, material) // update color of material
+        }
         jqueryEle.spectrum({
             type: "color",
             hideAfterPaletteSelect: true,
@@ -81,20 +89,25 @@ class Toolbar {
             showInitial: true,
             allowEmpty: false,
             move: colorMap =>  {
-                if (colorMap._a != 1) {
-                    material.opacity = colorMap._a
-                }
-                material.color.setStyle(                    
-                    "rgb(" + [
-                        Math.round(colorMap._r), 
-                        Math.round(colorMap._g), 
-                        Math.round(colorMap._b)
-                    ].join(",") + ")"                    
-                ) 
+                this.spectrumToMaterial(colorMap, material) // update color of material
+                window.localStorage.setItem(displayText, JSON.stringify(colorMap)) // update stored color in local storage
             }
         })
         jqueryEle.spectrum("set", initialColor)
         this.colorPickers.push(dropdownEle)
+    }
+
+    spectrumToMaterial(colorMap, material) { // applies spectrum color map to given material
+        if (colorMap._a != 1) {
+            material.opacity = colorMap._a
+        }
+        material.color.setStyle(                    
+            "rgb(" + [
+                Math.round(colorMap._r), 
+                Math.round(colorMap._g), 
+                Math.round(colorMap._b)
+            ].join(",") + ")"                    
+        ) 
     }
 
     removeColorPicker(ele) {

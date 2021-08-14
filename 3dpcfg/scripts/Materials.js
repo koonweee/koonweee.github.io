@@ -1,6 +1,5 @@
 class Materials {
     static parse(cfg, toolbar) {
-        console.log(cfg)
         var materials = new Object() // dictionary for materials
         Object.keys(cfg.fixed).forEach(materialCfgKey => { // create fixed materials
             const materialCfg = cfg.fixed[materialCfgKey];

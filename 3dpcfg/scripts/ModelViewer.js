@@ -25,8 +25,6 @@ class ModelViewer {
 
     onWindowResize() {
         var toolbarHeight = document.getElementById("toolbar").offsetHeight
-        console.log(toolbarHeight)
-        console.log(window.innerHeight)
         this.camera.aspect = this.container.clientWidth / (window.innerHeight - toolbarHeight);
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(this.container.clientWidth, (window.innerHeight - toolbarHeight));
