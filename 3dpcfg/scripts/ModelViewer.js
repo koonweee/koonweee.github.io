@@ -52,7 +52,7 @@ class ModelViewer {
     }
 
     initiateCamera() {
-        this.camera = new THREE.PerspectiveCamera(45, this.canvas.clientWidth / this.canvas.clientHeight, 100, 1250)       
+        this.camera = new THREE.PerspectiveCamera(45, this.canvas.clientWidth / this.canvas.clientHeight, 100, 1500)       
     }  
 
     initiateControls() {
@@ -139,7 +139,10 @@ class ModelViewer {
         this.camera.position.set(camX, camY, camZ)
         const lookAtVector = new THREE.Vector3(0, camY, 0)
         this.camera.lookAt(lookAtVector)
+        this.camera.far = 3 * zLen + 500
+        this.camera.updateProjectionMatrix();
         this.controls.target = lookAtVector
+        this.controls.maxDistance = 3 * zLen
         this.controls.update()
         // camera height is height/2
         // focus point and control target is (0, height/2, 0)
