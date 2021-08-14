@@ -1,6 +1,7 @@
 class ModelViewer {
     constructor() {
         this.canvas = document.getElementById("ModelViewerCanvas")
+        
         this.initiateRenderer() 
         this.initiateCamera()
         this.initiateControls()
@@ -36,12 +37,17 @@ class ModelViewer {
     }
 
     initiateRenderer() {
+        var canvas = $('#ModelViewerCanvas');
+        canvas.css("width", $(window).width());
+        canvas.css("height", $(window).height());
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true
         })
-        this.renderer.setPixelRatio(window.devicePixelRatio)
-        this.renderer.setSize(this.canvas.clientWidth , this.canvas.clientHeight);
+        const pixelRatio = window.devicePixelRatio;
+        const width  = this.canvas.clientWidth  * pixelRatio | 0;
+        const height = this.canvas.clientHeight * pixelRatio | 0;
+        this.renderer.setSize(width , height, false);
         this.renderer.outputEncoding = THREE.sRGBEncoding; // for gltf
     }
 
