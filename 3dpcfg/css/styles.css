@@ -93,6 +93,9 @@ div[class*='sp-replacer'] {
 .sp-container {
     background-color: rgba(100,100,100,0.9) !important;
     color: white !important;
+    left: 10% !important;
+    width: 80% !important;
+    max-width: 420px;
 }
 
 .sp-input {
@@ -110,25 +113,13 @@ a[class*=active] {
     background-color: rgb(0, 158, 119);
 }
 
-/* div[id=mobileWarn] {
-    
-} */
-div[id=mobileWarn] p {
-    width:65%;
-    margin: 0;
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-}
-
 #overlay {
     position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
-    width: 500px; /* Full width (cover the whole page) */
-    height: 225px; /* Full height (cover the whole page) */
+    display:none;
+    width: 98%; /* Full width (cover the whole page) */
+    max-width: 500px;
+    height: 30%; /* Full height (cover the whole page) */
+    max-height: 200px;
     top: 20%;
     left: 50%;
     margin-right: -50%;
@@ -139,14 +130,13 @@ div[id=mobileWarn] p {
     cursor: pointer; /* Add a pointer on hover */
 }
 #overlay p{
-    /* width:65%; */
     margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
+    font-size: 1rem;
 }
 #overlay p a:link{
     color: hotpink;
