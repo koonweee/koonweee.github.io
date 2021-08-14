@@ -1,11 +1,8 @@
 class ModelViewer {
-    constructor(canvasEle) {
-        this.container = document.getElementById("ModelViewerContainer")
-        var toolbarHeight = document.getElementById("toolbar").offsetHeight
-        this.container.height = (window.innerHeight - toolbarHeight)
-        this.initiateRenderer(canvasEle) 
+    constructor() {
+        this.canvas = document.getElementById("ModelViewerCanvas")
+        this.initiateRenderer() 
         this.initiateCamera()
-        window.addEventListener('resize', () => this.onWindowResize(), false); // handles window resizing, updating both render canvas size and camera projection
         this.initiateControls()
         this.initiateScene()
         this.loading = false
@@ -23,36 +20,37 @@ class ModelViewer {
         requestAnimationFrame(render);
     }
 
-    onWindowResize() {
-        var toolbarHeight = document.getElementById("toolbar").offsetHeight
-        this.camera.aspect = this.container.clientWidth / (window.innerHeight - toolbarHeight);
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(this.container.clientWidth, (window.innerHeight - toolbarHeight));
+    resizeRendererToDisplaySize() {
+        const renderer = this.renderer
+        const canvas = renderer.domElement;
+        const pixelRatio = window.devicePixelRatio;
+        const width  = canvas.clientWidth  * pixelRatio | 0;
+        const height = canvas.clientHeight * pixelRatio | 0;
+        const needResize = canvas.width !== width || canvas.height !== height;
+        if (needResize) {
+            renderer.setSize(width, height, false);
+            this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
+            this.camera.updateProjectionMatrix();
+        }
+        return needResize;
     }
 
-    initiateRenderer(canvasEle) {
-        this.container = document.getElementById("ModelViewerContainer")
-        var toolbarHeight = document.getElementById("toolbar").offsetHeight
-        this.canvas = canvasEle
+    initiateRenderer() {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true
         })
-        this.renderer.setClearColor( 0xffffff );
-        this.renderer.setSize(window.innerWidth, window.innerHeight - toolbarHeight);
+        this.renderer.setPixelRatio(window.devicePixelRatio)
+        this.renderer.setSize(this.canvas.clientWidth , this.canvas.clientHeight);
         this.renderer.outputEncoding = THREE.sRGBEncoding; // for gltf
     }
 
     initiateCamera() {
-        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 100, 1250)
-        // this.camera.position.set(0, 240, 650)
-        // this.camera.lookAt(new THREE.Vector3(0,170,0)); 
-        
+        this.camera = new THREE.PerspectiveCamera(45, this.canvas.clientWidth / this.canvas.clientHeight, 100, 1250)       
     }  
 
     initiateControls() {
         this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement)
-        // this.controls.target = new THREE.Vector3(0,170,0)
         this.controls.maxDistance = 1000
         this.controls.update()
     }
@@ -61,8 +59,6 @@ class ModelViewer {
         this.scene = new THREE.Scene()
         this.scene.background = new THREE.Color('white')
         Toolbar.addSceneColorPicker(this.scene)
-        // const axesHelper = new THREE.AxesHelper(375);
-        // this.scene.add(axesHelper)
     }    
 
     initiateSpotlights(xLen, yMax, zLen) { // object centered on x and z
