@@ -59,7 +59,8 @@ class ModelViewer {
 
     initiateScene() {
         this.scene = new THREE.Scene()
-        this.scene.background = new THREE.Color('grey')
+        this.scene.background = new THREE.Color('white')
+        Toolbar.addSceneColorPicker(this.scene)
         // const axesHelper = new THREE.AxesHelper(375);
         // this.scene.add(axesHelper)
     }    

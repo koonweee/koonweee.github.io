@@ -9,6 +9,47 @@ $(document).on({
 }, "li.dropdown");
 
 class Toolbar {
+    static addSceneColorPicker(scene) {
+        const id = "#colorPicker_" + Toolbar.guidGenerator()
+        var dropdownEle = Toolbar.createDropdownElement("colorDrop", "Background")
+        var colorpicker = document.createElement("input")
+        colorpicker.id = id.replace("#","")
+        dropdownEle.appendChild(colorpicker)
+        const jqueryEle = $(id)
+
+        var initialColor = ["rgb", scene.background.r, scene.background.g, scene.background.b].join(" ")
+
+        jqueryEle.spectrum({
+            type: "color",
+            hideAfterPaletteSelect: true,
+            showInput: true,
+            showInitial: true,
+            allowEmpty: false,
+            move: colorMap =>  {
+                scene.background.r = colorMap._r/255
+                scene.background.g = colorMap._g/255
+                scene.background.b = colorMap._b/255
+                window.localStorage.setItem("Background", JSON.stringify(colorMap)) // update stored color in local storage
+            }
+        })
+
+        // check if localstorage contains color for this material (key is display text)
+        var storedColor = window.localStorage.getItem("Background")
+        if (storedColor != null) {
+            storedColor = JSON.parse(storedColor)
+            // update color of background
+            scene.background.r = storedColor._r/255
+            scene.background.g = storedColor._g/255
+            scene.background.b = storedColor._b/255
+            jqueryEle.spectrum("set", 
+                ["rgba", storedColor._r, storedColor._g, storedColor._b, storedColor._a]
+                .join(" ")
+            )
+        } else {
+            jqueryEle.spectrum("set", initialColor)
+        }        
+    }
+
     static addAssemblies(assemblies) {
         Object.keys(assemblies).forEach(assemblyName => {
             this.createDropdownElement("modelDrop", assemblyName, () => {
@@ -75,13 +116,7 @@ class Toolbar {
         dropdownEle.appendChild(colorpicker)
         const jqueryEle = $(id)
 
-        // check if localstorage contains color for this material (key is display text)
-        var storedColor = window.localStorage.getItem(displayText)
-        if (storedColor != null) {
-            storedColor = JSON.parse(storedColor)
-            initialColor = storedColor // update initial color for picker
-            this.spectrumToMaterial(storedColor, material) // update color of material
-        }
+        
         jqueryEle.spectrum({
             type: "color",
             hideAfterPaletteSelect: true,
@@ -93,7 +128,19 @@ class Toolbar {
                 window.localStorage.setItem(displayText, JSON.stringify(colorMap)) // update stored color in local storage
             }
         })
-        jqueryEle.spectrum("set", initialColor)
+        // check if localstorage contains color for this material (key is display text)
+        var storedColor = window.localStorage.getItem(displayText)
+        if (storedColor != null) {
+            storedColor = JSON.parse(storedColor)
+            jqueryEle.spectrum("set", 
+                ["rgba", storedColor._r, storedColor._g, storedColor._b, storedColor._a]
+                .join(" ")
+            )
+            this.spectrumToMaterial(storedColor, material) // update color of material
+        } else {
+            jqueryEle.spectrum("set", initialColor)
+        }
+        
         this.colorPickers.push(dropdownEle)
     }
 
