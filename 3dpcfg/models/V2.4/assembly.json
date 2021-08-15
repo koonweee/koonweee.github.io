@@ -9,7 +9,7 @@
     },
     "models": {
         "frame": {
-            "src": "frame.glb?v=4",
+            "src": "frame.glb?v=6",
             "material": "frameMetal"
         },
         "base": {

@@ -5,43 +5,43 @@
             "r": 5,
             "g": 5,
             "b": 5,
-            "metalness": 0.1,
-            "roughness": 0.8
+            "metalness": 0.05,
+            "roughness": 0.9
         },
         "redPlastic": {
             "r": 200,
             "g": 25,
             "b": 25,
-            "metalness": 0.1,
-            "roughness": 0.8
+            "metalness": 0.05,
+            "roughness": 0.9
         },
         "bluePlastic": {
             "r": 25,
             "g": 25,
             "b": 200,
-            "metalness": 0.1,
-            "roughness": 0.8
+            "metalness": 0.05,
+            "roughness": 0.9
         },
         "whitePlastic": {
             "r": 180,
             "g": 180,
             "b": 180,
-            "metalness": 0.1,
-            "roughness": 0.8
+            "metalness": 0.05,
+            "roughness": 0.9
         },
         "brass": {
             "r": 181,
             "g": 166,
             "b": 66,
-            "metalness": 0.6,
+            "metalness": 0.5,
             "roughness": 0.5
         },
         "steel": {
             "r": 176,
             "g": 179,
             "b": 182,
-            "metalness": 0.6,
-            "roughness": 0.3
+            "metalness": 0.8,
+            "roughness": 0.2
         }
     },
     "configurable": {
@@ -51,8 +51,8 @@
             "r": 15,
             "g": 15,
             "b": 15,
-            "metalness": 0.6,
-            "roughness": 0.3
+            "metalness": 0.8,
+            "roughness": 0.2
         },
         "solidPanelsPlastic": {
             "displayName": "Solid panels",
@@ -60,8 +60,8 @@
             "r": 15,
             "g": 15,
             "b": 15,
-            "metalness": 0.1,
-            "roughness": 0.8
+            "metalness": 0.05,
+            "roughness": 0.9
         },
         "clearPanelsPlastic": {
             "displayName": "Clear panels",
@@ -70,8 +70,8 @@
             "r": 0,
             "g": 0,
             "b": 0,
-            "metalness": 0.1,
-            "roughness": 0.3
+            "metalness": 0.05,
+            "roughness": 0.2
         },
         "basePlastic": {
             "displayName": "Base",
@@ -79,8 +79,8 @@
             "r": 5,
             "g": 5,
             "b": 5,
-            "metalness": 0.1,
-            "roughness": 0.8
+            "metalness": 0.05,
+            "roughness": 0.9
         },
         "accentPlastic": {
             "displayName": "Accent",
@@ -88,8 +88,8 @@
             "r": 0,
             "g": 128,
             "b": 128,
-            "metalness": 0.1,
-            "roughness": 0.8
+            "metalness": 0.05,
+            "roughness": 0.9
         },
 		"screwsMetal": {
 			"displayName": "Fasteners",
@@ -97,7 +97,7 @@
             "r": 176,
             "g": 179,
             "b": 182,
-            "metalness": 0.6,
+            "metalness": 0.8,
             "roughness": 0.1
 		},
 		"railsMetal": {
@@ -106,8 +106,8 @@
             "r": 176,
             "g": 179,
             "b": 182,
-            "metalness": 0.6,
+            "metalness": 0.8,
             "roughness": 0.1
 		}
-    }    
+    }
 }

@@ -30,7 +30,7 @@
             <a href="javascript:void(0)" id="aboutBtn">
                 About
             </a>
-        </li>        
+        </li>
     </ul>
     <div id="overlayBg"></div>
     <div id="overlay">
@@ -56,7 +56,7 @@
             //     materials: "models/v1.8/materials.json?v=3"
             // },
             "Voron 2.4": {
-                assembly: "models/V2.4/assembly.json?v=3",
+                assembly: "models/V2.4/assembly.json?v=10",
                 materials: "models/V2.4/materials.json?v=3"
             },
             // "Voron Switchwire": {
@@ -65,8 +65,8 @@
             // },
             "Micron": {
                 assembly: "models/Micron/assembly.json?v=8",
-                materials: "models/Micron/materials.json?v=7"
-            }                 
+                materials: "models/Micron/materials.json?v=9"
+            }
         }
         Toolbar.addAssemblies(assemblies)
         Toolbar.addAboutButton()
@@ -77,9 +77,10 @@
     <script src="scripts/threejs/build/three.js"></script>
     <script src="scripts/threejs/examples/js/controls/OrbitControls.js"></script>
     <script src="scripts/threejs/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="scripts/ModelViewer.js?v=79"></script>
-    <script src="scripts/Materials.js?v=4"></script>
-    <script src="scripts/Assembly.js"></script>    
+    <script src="scripts/threejs/examples/js/environments/RoomEnvironment.js?v=1"></script>
+    <script src="scripts/ModelViewer.js?v=98"></script>
+    <script src="scripts/Materials.js?v=11"></script>
+    <script src="scripts/Assembly.js"></script>
     <script>
         const model_viewer = new ModelViewer()
         model_viewer.loadAssembly("./models/Micron/assembly.json?v=1", "./models/Micron/materials.json?v=1")

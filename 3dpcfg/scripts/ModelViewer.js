@@ -1,8 +1,8 @@
 class ModelViewer {
     constructor() {
         this.canvas = document.getElementById("ModelViewerCanvas")
-        
-        this.initiateRenderer() 
+
+        this.initiateRenderer()
         this.initiateCamera()
         this.initiateControls()
         this.initiateScene()
@@ -13,7 +13,7 @@ class ModelViewer {
             color: 0x0000ff,
             metalness: 0.5
         });
-                
+
         const render = () => {
             this.renderer.render(this.scene, this.camera);
             requestAnimationFrame(render);
@@ -44,16 +44,18 @@ class ModelViewer {
             canvas: this.canvas,
             antialias: true
         })
-        const pixelRatio = window.devicePixelRatio;
-        const width  = this.canvas.clientWidth  * pixelRatio | 0;
-        const height = this.canvas.clientHeight * pixelRatio | 0;
+        this.renderer.toneMapping = THREE.CineonToneMapping
+        this.renderer.toneMappingExposure = 1.0
+        this.renderer.setPixelRatio( window.devicePixelRatio);
+        const width  = this.canvas.clientWidth;
+        const height = this.canvas.clientHeight;
         this.renderer.setSize(width , height, false);
         this.renderer.outputEncoding = THREE.sRGBEncoding; // for gltf
     }
 
     initiateCamera() {
-        this.camera = new THREE.PerspectiveCamera(45, this.canvas.clientWidth / this.canvas.clientHeight, 100, 1500)       
-    }  
+        this.camera = new THREE.PerspectiveCamera(45, this.canvas.clientWidth / this.canvas.clientHeight, 100, 1500)
+    }
 
     initiateControls() {
         this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement)
@@ -64,69 +66,36 @@ class ModelViewer {
     initiateScene() {
         this.scene = new THREE.Scene()
         this.scene.background = new THREE.Color('white')
+        const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
+        this.scene.environment =
+          pmremGenerator.fromScene( new THREE.RoomEnvironment(), 0.04 ).texture;
         Toolbar.addSceneColorPicker(this.scene)
-    }    
+    }
 
     initiateSpotlights(xLen, yMax, zLen) { // object centered on x and z
+
+        //const sun = new THREE.DirectionalLight( 0xffffff, 1000 );
         const midY = yMax / 2
         const zMax = zLen / 2
         const xMax = xLen / 2
 
-        const spotFront = new THREE.SpotLight(
-            0xffffff,
-            0.70,
-            0,
-            1.57
-            );
-        spotFront.position.set(0, yMax + 400, zMax + 1000)
-        spotFront.target.position.set(0, midY, 100)
-        spotFront.target.updateMatrixWorld()
-        this.scene.add(spotFront)
-
-        const spotBack = new THREE.SpotLight(
-            0xffffff,
-            0.8,
-            0,
-            1.57
-            );
-        spotBack.position.set(0, yMax + 400, -(zMax + 1000))
-        spotFront.target.position.set(0, midY, -100)
-        spotBack.target.updateMatrixWorld()
+        const spotBack = new THREE.PointLight( 0xffffff, 0.5, 0 );
+        spotBack.position.set(0, yMax, -(zMax + 1000))
         this.scene.add(spotBack)
 
-        const spotLeft = new THREE.SpotLight(
-            0xffffff,
-            0.75,
-            0,
-            1.57
-            );
-        spotLeft.position.set(-(xMax + 1000), yMax + 400, 0)
-        spotFront.target.position.set(0, midY, 0)
-        spotLeft.target.updateMatrixWorld()
+        const spotLeft = new THREE.PointLight( 0xffffff, 0.5, 0 );
+        spotLeft.position.set(-(xMax + 1000), yMax, 0)
         this.scene.add(spotLeft)
 
-        const spotRight = new THREE.SpotLight(
-            0xffffff,
-            0.75,
-            0,
-            1.57
-            );
-        spotRight.position.set(xMax + 1000, yMax + 400, 0)
-        spotFront.target.position.set(0, midY, 0)
-        spotRight.target.updateMatrixWorld()
+        const spotRight = new THREE.PointLight( 0xffffff, 0.5, 0 );
+        spotRight.position.set(xMax + 1000, yMax, 0)
         this.scene.add(spotRight)
 
-        const spotBottom = new THREE.SpotLight(
-            0xffffff,
-            0.6,
-            0,
-            1.57
-            );
-        spotBottom.position.set(0, - (yMax+ 400), 0)
-        spotFront.target.position.set(0, midY, 0)
-        spotBottom.target.updateMatrixWorld()
+        const spotBottom = new THREE.PointLight( 0xffffff, 0.5, 0 );
+        spotBottom.position.set(0, - (yMax), 0)
         this.scene.add(spotBottom)
-        this.activeLights = [spotFront, spotBack, spotLeft, spotRight, spotBottom]     
+
+        this.activeLights = [spotBack, spotLeft, spotRight, spotBottom]
     }
 
     frameAssembly(yMax, zLen) {
@@ -155,7 +124,7 @@ class ModelViewer {
             var assembly = Assembly.parse(fulfilled[0].value, fulfilled[1].value) // pass assembly and material cfg objects to relevant parsers
             this.assemblies.push(assembly)
             this.initiateSpotlights(assembly.meta.width, assembly.meta.height, assembly.meta.depth)
-            this.frameAssembly(assembly.meta.height, assembly.meta.depth)         
+            this.frameAssembly(assembly.meta.height, assembly.meta.depth)
         })
     }
 
