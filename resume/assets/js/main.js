@@ -77,7 +77,7 @@
   let backtotop = select('.back-to-top')
   if (backtotop) {
     const toggleBacktotop = () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 150) {
         backtotop.classList.add('active')
       } else {
         backtotop.classList.remove('active')
@@ -85,6 +85,22 @@
     }
     window.addEventListener('load', toggleBacktotop)
     onscroll(document, toggleBacktotop)
+  }
+
+  /**
+   * Floating download
+   */
+  let floatdownload = select('.float-download')
+  if (floatdownload) {
+    const toggleFloatdownload = () => {
+      if (window.scrollY > 1000) {
+        floatdownload.classList.add('active')
+      } else {
+        floatdownload.classList.remove('active')
+      }
+    }
+    window.addEventListener('load', toggleFloatdownload)
+    onscroll(document, toggleFloatdownload )
   }
 
   /**
@@ -254,7 +270,7 @@
    */
   window.addEventListener('load', () => {
     AOS.init({
-      duration: 1000,
+      duration: 600,
       easing: 'ease-in-out',
       once: true,
       mirror: false
