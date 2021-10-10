@@ -1,0 +1,23 @@
+.profile-image {
+    display: inline-block;
+    max-width: 250px;
+    height: auto;
+    margin: 50px;
+}
+
+.profile-text {
+    display: inline-grid;
+}
+
+.download-resume {
+    padding: 0px;
+    border-radius: 50px;
+    height: 50px;
+    background: #2b816e;
+    color:white;
+    font-size: 18px;
+    margin-top: 10px;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    width: 300px;
+}
